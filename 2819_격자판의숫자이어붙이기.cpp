@@ -44,6 +44,7 @@ int main(){
 			}
 		}
 		printf("#%d %d\n",i ,res);
+		res = 0;
 	} 
 	
 	return 0;
