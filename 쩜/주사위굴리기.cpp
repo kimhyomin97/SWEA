@@ -16,16 +16,19 @@ int main(){
 		int num;
 		scanf("%d", &num);
 		if(num == 1){
-			
+			// µ¿ 
 		}
 		else if(num == 2){
-			
+			// ¼­
+			 
 		}
 		else if(num == 3){
-			
+			// ºÏ 
+			 
 		}
 		else if(num == 4){
-			
+			// ³² 
+			 
 		}
 	}
 	
