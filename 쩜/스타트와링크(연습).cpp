@@ -4,31 +4,36 @@
 int n;
 int game[20][21];
 int select[10];
+bool visit[20] = {false,};
 
 int sum1 = 0, sum2 = 0;
+int ans = 99999999;
 
 void combi(int len, int num){
 	if(len == n/2) {
-		for(int i=0; i<len; i++) printf("%d ", select[i]);
-		printf("\n");	
+		for(int i=0; i<n; i++){
+			for(int j=i+1; j<n; j++){
+				if(visit[i] == true && visit[j] == true){
+					sum1 += game[i][j] + game[j][i];
+				}
+				if(visit[i] == false && visit[j] == false){
+					sum2 += game[i][j] + game[j][i];
+				}
+			}
+		}
+		int temp = sum1 - sum2;
+		if(temp < 0) temp *= -1;
+		if(temp < ans) ans = temp;
+		sum1 = 0; sum2 = 0;
 		return;
 	}
 	
 	for(int i=num; i<n; i++){
-		if(i < len) continue;
-		select[len] = i;
-		combi(len+1, num+1);
+		visit[i] = true;
+		combi(len+1, i+1);
+		visit[i] = false;
 	}
 }
-
-// 1 2 3 4
-// 1 2
-// 1 3
-// 1 4
-// 2 3
-// 2 4
-// 3 4
-
 
 int main(){
 	scanf("%d", &n);
@@ -40,18 +45,8 @@ int main(){
 	}
 	
 	combi(0, 0);
-	
+	printf("%d", ans);
 	
 	return 0;
-} 
-
-
-//1 3 6		2 4 5
-//
-//1,3 1,6 3,6
-//2+1 5+1 5+3 = 3 + 6 + 8 = 17
-//
-//2,4 2,5 4,5
-//3+2 4+2 4+4 = 5 + 6 + 8 = 19
-
+}
 
