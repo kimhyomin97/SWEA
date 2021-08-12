@@ -1,4 +1,4 @@
-// 백준 5557 1학년 test
+// 백준 5557 1학년
 // dfs로 짜면 시간초과 발생 
 #include <cstdio>
 int n;
