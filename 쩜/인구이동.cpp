@@ -1,4 +1,4 @@
-// 백준 16234 인구 이동 test
+// 백준 16234 인구 이동
 #include <cstdio>
 int n, l, r;
 int map[50][50];
