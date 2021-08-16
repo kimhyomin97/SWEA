@@ -1,4 +1,5 @@
 // 백준 2458 키순서
+// 플로이드 워셜 알고리즘 고려해보자
 #include <cstdio>
 #include <vector>
 using namespace std;
@@ -44,7 +45,6 @@ int main(){
     for(int i=0; i<m; i++){
         int a, b;
         scanf("%d%d", &a, &b);
-        // a보다 b가 크다
         edge[a].push_back(b);
         edge_rev[b].push_back(a);
     }
