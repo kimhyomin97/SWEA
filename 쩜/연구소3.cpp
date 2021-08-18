@@ -19,6 +19,17 @@ vector <pos> select;
 int cnt = 3;
 int ans = 99999999;
 
+bool check(){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            if(map[i][j] != 1 && map[i][j] != cnt && map[i][j] != 2){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 void select_virus(int len, int index){
     if(len == m) {
         queue <pos> q;
@@ -28,7 +39,11 @@ void select_virus(int len, int index){
             q.push(select[i]);
         }
         int sec = 0;
-        while(q.size()!=0 && wait.size() != 0){
+        if(check()){
+            ans = 0;
+            return;
+        }
+        while(q.size()!=0 || wait.size() != 0){
             pos now = q.front();
             q.pop();
             for(int i=0; i<4; i++){
@@ -41,8 +56,10 @@ void select_virus(int len, int index){
                     wait.push({nr, nc});
                 }
             }
+            if(q.size() == 0 && wait.size() == 0) break;
             if(q.size() == 0){
                 sec++;
+                if(check()) break;
                 while(wait.size() != 0){
                     q.push(wait.front());
                     wait.pop();
@@ -50,18 +67,13 @@ void select_virus(int len, int index){
             }
         }
         bool flag = true;
-        printf("\n");
         for(int i=0; i<n; i++){
             for(int j=0; j<n; j++){
-                // if(map[i][j] != 1 && map[i][j] != cnt && map[i][j] != 2){
-
-                //     flag = false;
-                //     break;
-                // }
-                printf("%d ", map[i][j]);
-                // 바이러스가 비활성인 상태는 무엇인가?
+                if(map[i][j] != 1 && map[i][j] != cnt && map[i][j] != 2){
+                    flag = false;
+                    break;
+                }
             }
-            printf("\n");
             if(flag == false) break;
         }
         if(flag == false){
@@ -69,6 +81,9 @@ void select_virus(int len, int index){
         }
         if(sec < ans) ans = sec;
         cnt++;
+        for(int i=0; i<virus.size(); i++){
+            map[virus[i].row][virus[i].col] = 2;
+        }
         return;
     }
     for(int i=index; i<virus.size(); i++){
