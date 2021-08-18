@@ -18,6 +18,7 @@ vector <pos> virus;
 vector <pos> select;
 int cnt = 3;
 int ans = 99999999;
+int zero_cnt = 0;
 
 bool check(){
     for(int i=0; i<n; i++){
@@ -39,11 +40,13 @@ void select_virus(int len, int index){
             q.push(select[i]);
         }
         int sec = 0;
+        int compare_cnt = 0;
         if(check()){
             ans = 0;
             return;
         }
         while(q.size()!=0 || wait.size() != 0){
+            // if(sec >= ans) break;
             pos now = q.front();
             q.pop();
             for(int i=0; i<4; i++){
@@ -51,6 +54,7 @@ void select_virus(int len, int index){
                 int nc = now.col + dc[i];
                 if(nr < 0 || nr >= n || nc < 0 || nc >= n || map[nr][nc] == 1 || map[nr][nc] == cnt) continue;
                 else{
+                    if(map[nr][nc] != 2) compare_cnt++;
                     map[nr][nc] = cnt;
                     // q.push({nr, nc});
                     wait.push({nr, nc});
@@ -59,24 +63,27 @@ void select_virus(int len, int index){
             if(q.size() == 0 && wait.size() == 0) break;
             if(q.size() == 0){
                 sec++;
-                if(check()) break;
+                // if(check()) break;
+                bool wait_flag = false;
                 while(wait.size() != 0){
+                    pos test = wait.front();
+                    for(int i=0; i<4; i++){
+                        int nr = test.row + dr[i];
+                        int nc = test.col + dc[i];
+                        if(nr < 0 || nr >= n || nc < 0 || nc >= n || map[nr][nc] == 1 || map[nr][nc] == cnt || map[nr][nc] == 2) continue;
+                        else wait_flag = true;
+                    }
                     q.push(wait.front());
                     wait.pop();
                 }
+                if(wait_flag == false && compare_cnt == zero_cnt) break;
+                // if(wait_flag == false) {
+                //     printf("%d %d \n", compare_cnt, zero_cnt);    
+                //     break;
+                // }
             }
         }
-        bool flag = true;
-        for(int i=0; i<n; i++){
-            for(int j=0; j<n; j++){
-                if(map[i][j] != 1 && map[i][j] != cnt && map[i][j] != 2){
-                    flag = false;
-                    break;
-                }
-            }
-            if(flag == false) break;
-        }
-        if(flag == false){
+        if(check() == false){
             sec = 99999999;
         }
         if(sec < ans) ans = sec;
@@ -98,7 +105,8 @@ int main(){
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
             scanf("%d", &map[i][j]);
-            if(map[i][j] == 2) virus.push_back({i, j}); 
+            if(map[i][j] == 2) virus.push_back({i, j});
+            if(map[i][j] == 0) zero_cnt++;
         }
     }
 
