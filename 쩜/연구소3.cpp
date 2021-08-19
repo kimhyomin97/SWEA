@@ -77,10 +77,6 @@ void select_virus(int len, int index){
                     wait.pop();
                 }
                 if(wait_flag == false && compare_cnt == zero_cnt) break;
-                // if(wait_flag == false) {
-                //     printf("%d %d \n", compare_cnt, zero_cnt);    
-                //     break;
-                // }
             }
         }
         if(check() == false){
