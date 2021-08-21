@@ -13,7 +13,9 @@ int main(){
 		char N[20];
 		scanf("%s", &N);
 		printf("\n");
+		
 	}	
 	
 	return 0;
 } 
+10 9 / 2
