@@ -12,7 +12,6 @@ int main(){
 		string str;
 		int k;
 		char temp[10001];
-//		int cnt[26] = {0,};
 		vector <int> cnt[26];
 		scanf("%s", &temp);
 		str = temp;
@@ -24,18 +23,21 @@ int main(){
 		for(int j=0; j<26; j++){
 			int min=10001, min2=10001, max=-1;
 			if(cnt[j].size() >= k){
-				for(int s=0; s<cnt[j].size(); s++){
-					if(cnt[j][s] < min) min = cnt[j][s];
-					else if(cnt[j][s] < min2) min2 = cnt[j][s];
-					if(cnt[j][s] > max) max = cnt[j][s];
+				for(int s=0; s+k-1<cnt[j].size(); s++){
+					if(cnt[j][s+k-1] - cnt[j][s] < min) {
+						min = cnt[j][s+k-1] - cnt[j][s];
+					}
+					if(cnt[j][s+k-1] - cnt[j][s] > max) {
+						max = cnt[j][s+k-1] - cnt[j][s];	
+					}
 				}
+				if(min < min_ans) min_ans = min;
+				if(max > max_ans) max_ans = max;
 			}
-			if((min2 - min) != 0 && min2-min < min_ans) min_ans = min2-min;
-			if(max-min > max_ans) max_ans = max-min;
 		}
 		if(max_ans == -1) printf("-1\n");
 		else
-			printf("%d %d\n", min_ans+1, max_ans);
+			printf("%d %d\n", min_ans+1, max_ans+1);
 	}
 	
 	return 0;
