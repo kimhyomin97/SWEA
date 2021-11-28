@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <vector>
 #include <string>
+#include <map>
 using namespace std;
 
 struct info{
@@ -28,7 +29,6 @@ int main(){
 			size++;
 		}
 	}
-	printf("%d %d\n", len, size);
 	for(int i=0; i<size; i++){
 		printf("%s %.4lf\n", tree[i].name.c_str(), ((double)tree[i].cnt)/len*100);
 	}
