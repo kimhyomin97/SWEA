@@ -13,6 +13,7 @@ queue <pos> tomato;
 int map[1000][1000];
 int dr[4] = {1, -1, 0 ,0};
 int dc[4] = {0, 0, 1, -1};
+
 int ans = 0;
 
 int main(){	
