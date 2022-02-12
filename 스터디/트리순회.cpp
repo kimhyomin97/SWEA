@@ -25,7 +25,7 @@ void postorder(int num){ // 후위순회
 	if(tree[num].left != '.') postorder(tree[num].left-'A');
 	if(tree[num].right != '.') postorder(tree[num].right-'A');
 	printf("%c", tree[num].now);
-}
+} 
 
 int main(){
 	scanf("%d", &n);

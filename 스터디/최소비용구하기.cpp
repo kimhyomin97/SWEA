@@ -10,6 +10,10 @@ struct info{
 	int dest;
 };
 
+//bool operator < (info a, info b){
+//	return a.cost > b.cost;
+//}
+
 int n, m;
 vector<info> map[1001];
 int st, dt; // 출발점, 도착점
@@ -43,8 +47,10 @@ int main(){
 	scanf("%d %d", &st, &dt);
 	
 	for(int i=1; i<=n; i++) dij[i] = -1;
+//	for(int i=1; i<=n; i++) dij[i] = 1e9;
 	
 	queue<info> q;
+//	priority_queue<info> q;
 	visit[st] = true;
 	for(int i=0; i<map[st].size(); i++) {
 		info now = map[st][i];
@@ -56,16 +62,17 @@ int main(){
 		int size = q.size();
 		for(int i=0; i<size; i++){
 			info now = q.front();
+//			info now = q.top();
 			q.pop();
 			for(int j=0; j<map[now.dest].size(); j++){
 				info temp = map[now.dest][j];
-				if(visit[temp.dest] == false){
-					visit[temp.dest] = true;
+//				if(visit[temp.dest] == false){
+//					visit[temp.dest] = true;
 					q.push(temp);
 					if(dij[temp.dest] == -1 || dij[temp.dest] > dij[temp.start] + temp.cost){
 						dij[temp.dest] = dij[temp.start] + temp.cost;
 					}
-				}
+//				}
 			}
 		}
 	}
