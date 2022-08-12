@@ -1,80 +1,73 @@
+// BOJ 2357 최솟값과 최댓값
 #include <iostream>
 #define size (1 << 17)
 using namespace std;
 
-int minlist[size * 2];
 int maxlist[size * 2];
-	
+int minlist[size * 2];
+
+int getMax(int start, int end){
+	int maxval = 0;
+	while(start <= end){
+		if(start % 2 == 1){
+			if(maxval < maxlist[start]) maxval = maxlist[start];
+			start++;
+		}
+		if(end % 2 == 0){
+			if(maxval < maxlist[end]) maxval = maxlist[end];
+			end--;
+		}
+		start /= 2;
+		end /= 2;
+	}
+	return maxval;
+}
+
+int getMin(int start, int end){
+	int minval = 1000000001;
+	while(start <= end){
+		if(start % 2 == 1){
+			if(minval > minlist[start]) minval = minlist[start];
+			start++;
+		}
+		if(end % 2 == 0){
+			if(minval > minlist[end]) minval = minlist[end];
+			end--;
+		}
+		start /= 2;
+		end /= 2;
+	}
+	return minval;
+}
+
 int main(){
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 	int n, m;
-	cin >> n >> m;	
-	
+	cin >> n >> m;
 	for(int i=0; i<n; i++){
 		int num;
 		cin >> num;
-		minlist[size+i] = num;
 		maxlist[size+i] = num;
+		minlist[size+i] = num;
 	}
 	
-	for(int i=0; i<n; i++){
-		int index = size + i;
+	for(int i=0; i<n; i+=2){
+		int index = size+i;
 		while(index > 0){
 			index /= 2;
-			minlist[index] = (minlist[index*2] < minlist[index*2+1]) ? minlist[index*2] : minlist[index*2+1];
-			maxlist[index] = (maxlist[index*2] > maxlist[index*2+1]) ? maxlist[index*2] : maxlist[index*2+1];
+			maxlist[index] = maxlist[index*2] > maxlist[index*2+1] ? maxlist[index*2] : maxlist[index*2+1];
+			minlist[index] = minlist[index*2] < minlist[index*2+1] ? minlist[index*2] : minlist[index*2+1];
 		}
 	}
+	
 	for(int i=0; i<m; i++){
-		int a, b;
-		cin >> a >> b;
-		int minval = 1000000001;
-		int maxval = -1;
-		a += size-1;
-		b += size-1;
-//		a += size;
-//		b += size;
-		int a2 = a;
-		int b2 = b;
-		while(a < b){
-			if(a % 2 == 1){
-				// 한칸 오른쪽 이동
-				if(minlist[a] < minval) minval = minlist[a];
-				if(maxlist[a] > maxval) maxval = maxlist[a];
-				a++;
-			}
-			if(b % 2 == 0){
-				// 한칸 왼쪽 이동 
-				if(minlist[b] < minval) minval = minlist[b];
-				if(maxlist[b] > maxval) maxval = maxlist[b];
-				b--;
-			}
-			a /= 2;
-			b /= 2;
-		}
-//		while(a2 < b2){
-//			if(a2 % 2 == 1){
-//				// 한칸 오른쪽 이동
-//				if(maxlist[a2] > maxval) maxval = maxlist[a2];
-//				a2++;
-//			}
-//			if(b2 % 2 == 0){
-//				// 한칸 왼쪽 이동 
-//				if(maxlist[b2] > maxval) maxval = maxlist[b2];
-//				b2--;
-//			}
-//			a2 /= 2;
-//			b2 /= 2;
-//		}
-		
-		if(minlist[a] < minval) minval = minlist[a];
-		if(maxlist[a] > maxval) maxval = maxlist[a];
-//		if(maxlist[a2] > maxval) maxval = maxlist[a2];
-		cout << minval << " " << maxval << "\n";
+		int start, end; // 0이 아닌 1부터 시작 
+		cin >> start >> end;
+		cout << getMin(start+size-1, end+size-1) << " " << getMax(start+size-1, end+size-1) << "\n";
 	}
 	
 	
 	return 0;
-} 
+}

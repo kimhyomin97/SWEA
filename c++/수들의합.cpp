@@ -1,7 +1,7 @@
 // BOJ 2268 수들의 합7 세그먼트트리 
 // 재귀문으로 짜는 방법 생각해봐야된다 
 #include <iostream> 
-#define size (1 << 17)
+#define size (1 << 20)
 using namespace std;
 
 long long tree[size * 2];
