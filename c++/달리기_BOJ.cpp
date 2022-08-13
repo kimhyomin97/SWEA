@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#define size (1 << 19) // 왜 16은 안되고 17만 가능한지? 
+#define size (1 << 19) // 왜 16은 안되고 19만 가능한지? -> size 찍어볼때 "\n" 꼭 붙이자 
 using namespace std;
 
 struct info{
@@ -46,19 +46,22 @@ int main(){
 	int n;
 	cin >> n;
 	
-	vector <info> list;
+//	vector <info> list; // vector 버전 
+	info list[n];  // array 버전 
 	for(int i=0; i<n; i++){
 		int num;
 		cin >> num;
-		list.push_back({num, i});
+		list[i] = {num, i}; //
+//		list.push_back({num, i}); // 
 	}
 	
-	sort(list.begin(), list.end(), compareValue);
-	
+//	sort(list.begin(), list.end(), compareValue); // 
+	sort(list, list+n, compareValue); //
 	for(int i=0; i<n; i++) list[i].value = i;
 	
-	sort(list.begin(), list.end(), compareIndex);
-	cout << size;
+//	sort(list.begin(), list.end(), compareIndex); // 
+	sort(list, list+n, compareIndex); //
+	
 	for(int i=0; i<n; i++){
 		update(list[i].value+size);
 		cout << calc(list[i].value+size, n+size) << "\n";
