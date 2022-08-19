@@ -14,8 +14,9 @@ void update(int index){
 }
 
 void calc(int index, int num){
-	if(index > size){
-		cout << index - size + 1 << "\n";
+	list[index]--;
+	if(index >= size){
+		cout << index - size << "\n";
 		return;
 	} 
 	// 왼쪽 자식값이 부모보다 작으면 값을 빼고 오른쪽으로 이동 
@@ -38,8 +39,8 @@ int main(){
 		int a, b;
 		cin >> a >> b;
 		if(a == 1){
-			list[size + b-1] = 1;
-			update(size + b-1);
+			list[size + b]++;
+			update(size + b);
 		}
 		if(a == 2){
 			calc(1, b);
