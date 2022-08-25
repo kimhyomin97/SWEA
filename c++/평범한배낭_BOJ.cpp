@@ -21,22 +21,17 @@ int main(){
 		cin >> list[i].weight >> list[i].value;
 	}
 	
-	int dp[n][k+1];
+	int dp[k+1] = {0};
+	
 	for(int i=0; i<n; i++){
-		for(int j=1; j<=k+1; j++){
-//			if(i==0){
-//				if(list[i].weight <= j) dp[i][j] = list[i].value;
-//				else dp[i][j] = 0;
-//			} 
-//			else {
-//				if(j-list[i].weight > 0) dp[i][j] = max(dp[i-1][j], dp[i-1][j-list[i].weight] + list[i].value);
-//				else dp[i][j] = dp[i-1][j];
-//			}
-			
+		for(int j=k; j>0; j--){ 
+		// 이부분 0부터 시작하면 값이 중복되는 오류 발생 -> 뒤에서부터 오는 방법으로 해결 
+			if(j - list[i].weight < 0) continue;
+			dp[j] = max(dp[j], dp[j-list[i].weight] + list[i].value);
 		}
 	}
 	
-	cout << dp[n-1][k+1];
+	cout << dp[k];
 	
 	return 0;
 } 
