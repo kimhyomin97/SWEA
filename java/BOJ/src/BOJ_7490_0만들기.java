@@ -6,14 +6,16 @@ public class BOJ_7490_0만들기 {
 	
 	static void recur(int now, int len, int sum, String temp, int before) {
 		if(now > len) {
-//			if(sum == 0) 
-			sb.append(temp+"\n");
+			if(sum == 0) sb.append(temp+"\n");
+//			System.out.println(temp + " : " + sum);
 			return;
 		}
 		recur(now+1, len, sum+now, temp+"+"+Integer.toString(now), now); // +
-		recur(now+1, len, sum-now, temp+"-"+Integer.toString(now), now); // -
-//		int calc = before*10 + now;
-//		recur(now+1, len, sum-before+calc, temp+" "+Integer.toString(now), calc); // +
+		recur(now+1, len, sum-now, temp+"-"+Integer.toString(now), now*-1); // -
+		int calc = before*10;
+		if(calc > 0) calc += now;
+		else calc -= now;
+		recur(now+1, len, sum-before+calc, temp+" "+Integer.toString(now), calc); // " "
 	}
 	
 	public static void main(String[] args) throws Exception {
