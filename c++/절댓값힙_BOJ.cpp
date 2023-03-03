@@ -10,9 +10,9 @@ struct info {
 
 bool operator < (info a, info b){
 	if(b.abs == a.abs){
-		return b.value < a.value;
+		return a.value > b.value;
 	}
-	return b.abs < a.abs;
+	return a.abs > b.abs;
 }
 
 int main(){
