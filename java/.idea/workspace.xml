@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2c609eb8-9e09-40e8-8476-e42b47e2bc71" name="Changes" comment="" />
+    <list default="true" id="2c609eb8-9e09-40e8-8476-e42b47e2bc71" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BOJ/src/Leetcode_LongestSubstringWithoutRepeatingCharacters.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,6 +34,7 @@
       <updated>1640008652665</updated>
       <workItem from="1640008653863" duration="8000" />
       <workItem from="1659360470955" duration="41000" />
+      <workItem from="1678798812544" duration="12000" />
     </task>
     <servers />
   </component>
