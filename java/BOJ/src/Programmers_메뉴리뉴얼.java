@@ -4,9 +4,17 @@ import java.util.*;
 
 class Solution {
     public HashMap <String, Integer> map = new HashMap<String, Integer>();
-    public void recur(String str, String target, int index){
+    public void recur(String str, String target, int index, int[] course){
         if(index == str.length()) {
-            if(target.length() >= 2){
+            int targetLen = target.length();
+            boolean flag = false;
+            for(int i=0; i<course.length; i++){
+                if(course[i] == targetLen) {
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag){
                 if(map.get(target) == null){
                     map.put(target, 1);
                 }
@@ -16,24 +24,37 @@ class Solution {
             }
             return;
         }
-        recur(str, target, index+1);
-        recur(str, target+str.charAt(index), index+1);
+        recur(str, target, index+1, course);
+        recur(str, target+str.charAt(index), index+1, course);
     }
     public String[] solution(String[] orders, int[] course) {
-        String[] answer = {};
-        String[] list = new String[orders.length];
+        // String[] answer = {};
+        ArrayList<String> answer = new ArrayList<>();
         
         for(int i=0; i<orders.length; i++){
             char[] temp = orders[i].toCharArray();
             Arrays.sort(temp);
-            list[i] = new String(temp);
-            recur(new String(temp), "", 0);
+            recur(new String(temp), "", 0, course);
         }
         
-        for(String i : map.keySet()){
-            System.out.println(i + " : " + map.get(i));
+        for(int i=0; i<course.length; i++){
+            ArrayList<String> tempAnswer = new ArrayList<>();
+            int maxLen = 0;
+            for(String key : map.keySet()){
+                if(key.length() == course[i]){
+                    if(map.get(key) >= maxLen){
+                        if(map.get(key) > maxLen) tempAnswer.clear();
+                        if(map.get(key) >= 2){
+                            tempAnswer.add(key);
+                            maxLen = map.get(key);
+                        }
+                    }
+                }
+            }
+            answer.addAll(tempAnswer);
         }
-        
-        return answer;
+        String[] arrayAnswer = answer.toArray(new String[0]);
+        Arrays.sort(arrayAnswer);
+        return arrayAnswer;
     }
 }
