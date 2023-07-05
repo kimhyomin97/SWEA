@@ -2,7 +2,7 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/72411?language=java
 import java.util.*;
 
-class Solution {
+class Programmers_메뉴리뉴얼 {
     public HashMap <String, Integer> map = new HashMap<String, Integer>();
     public void recur(String str, String target, int index, int[] course){
         if(index == str.length()) {

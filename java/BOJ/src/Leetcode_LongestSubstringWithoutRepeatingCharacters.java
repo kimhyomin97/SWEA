@@ -1,5 +1,7 @@
+import java.util.HashMap;
+
 // https://leetcode.com/problems/longest-substring-without-repeating-characters/
-class Solution {
+class Leetcode_LongestSubstringWithoutRepeatingCharacters {
     int ans = 0;
     public void recur(HashMap<Character, Boolean> map, String s, int left, int right){
         if(ans < right - left) ans = right-left;

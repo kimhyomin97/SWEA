@@ -2,7 +2,7 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/42628
 import java.util.*;
 
-class Solution {
+class Programmers_이중우선순위큐 {
     public class infoMax implements Comparable<infoMax> {
         int value;
         int index;
