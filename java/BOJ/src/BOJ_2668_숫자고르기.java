@@ -1,61 +1,58 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class BOJ_2668_숫자고르기 {
-    public static int ans;
-    public static ArrayList<Integer> ans_list = new ArrayList<>();
+
+    public static int n = 0;
+    public static int max_value = 0;
+    public static boolean[] ans_visit;
+    public static ArrayList<Integer> ans = new ArrayList();
+    public static ArrayList<Integer> temp = new ArrayList();
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        int[] list = new int[n];
-        boolean[] visit = new boolean[n];
+        n = Integer.parseInt(br.readLine());
+        int[] list = new int[n+1];
+        boolean[] visit = new boolean[n+1];
+        ans_visit = new boolean[n+1];
 
-        for(int i=0; i<n; i++){
+        for(int i=1; i<=n; i++){
             list[i] = Integer.parseInt(br.readLine());
             visit[i] = false;
         }
-        dfs(0,  n, list, visit);
 
-        System.out.println(ans);
-        for(int i=0; i<ans_list.size(); i++){
-            System.out.println(ans_list.get(i));
+
+
+        for(int i=1; i<=n; i++){
+            if(ans_visit[i] == false) dfs(list, visit, i, i);
+            temp.clear();
+        }
+
+        System.out.println(max_value);
+        Collections.sort(ans);
+        for(int i=0; i<ans.size(); i++){
+            System.out.println(ans.get(i));
         }
     }
 
-    public static void dfs(int now, int n, int[] list, boolean[] visit){
-        // TODO : 메모리 초과 해결필요 -> 2^100 - 1 가지의 경우의수가 있기 때문에
-        ArrayList<Integer> temp1 = new ArrayList<>();
-        ArrayList<Integer> temp2 = new ArrayList<>();
-        for(int i=0; i<n; i++){
-            if(visit[i] == true){
-                temp1.add(i+1);
-                temp2.add(list[i]);
+    public static void dfs(int[] list, boolean[] visit, int num, int index){
+        if(visit[num] == true){
+            if(num == index){
+                max_value += temp.size();
+                for(int i=0; i<temp.size(); i++){
+                    ans.add(temp.get(i));
+                    ans_visit[temp.get(i)] = true;
+                }
+                temp.clear();
             }
-        }
-        Collections.sort(temp1);
-        Collections.sort(temp2);
-        boolean flag = true;
-        int size = temp1.size();
-        for(int i=0; i<size; i++){
-            if(temp1.get(i) != temp2.get(i)) {
-                flag = false;
-                break;
-            }
-        }
-        if(flag == true && size > ans){
-            ans = size;
-            ans_list = new ArrayList<>(temp1);
+            return;
         }
 
-        for(int i=now; i<n; i++){
-            if(visit[i] == false){
-                visit[i] = true;
-                dfs(now+1, n, list, visit);
-                visit[i] = false;
-            }
-        }
+        visit[num] = true;
+        temp.add(num);
+        dfs(list, visit, list[num], index);
+        visit[num] = false;
     }
+
 }
